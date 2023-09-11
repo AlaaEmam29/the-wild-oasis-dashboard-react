@@ -91,16 +91,31 @@ export const getStaysAfterDate = async (date) => {
 };
 
 export async function getStaysTodayActivity() {
+  // const { data, error } = await supabase
+  //   .from("bookings")
+  //   .select("*, guests(name, nationality, countryFlag)")
+  //   .or(
+  //     `and(status.eq.unconfirmed,startDate.eq.${format(new Date(), "yyyy-MM-dd")}),and(status.eq.checked-in,endDate.eq.${format(new Date(), "yyyy-MM-dd")})`,
+  //   )
+  //   .order("created_at");
+  // if (error) {
+  //   throw new Error(error.message);
+  // }
+  
+  // return data;
+  const today = format(new Date(), 'yyyy-MM-dd');
+
   const { data, error } = await supabase
-    .from("bookings")
-    .select("*, guests(name, nationality, countryFlag)")
-    .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`,
-    )
-    .order("created_at");
+  .from('bookings')
+  .select('*, guests(name, nationality, countryFlag)')
+  .filter('startDate', 'lte', today)
+  .filter('endDate', 'gte', today)
+  .or('status.eq.unconfirmed,status.eq.checked-in')
+  .order('created_at');
 
   if (error) {
     throw new Error(error.message);
   }
   return data;
+
 }
