@@ -44,23 +44,22 @@ export default function Filter({ tableData, filterValue }) {
     setSearchParams(searchParams);
   }
   return (
-    <StyleSheetManager shouldForwardProp={prop => prop !== 'active'}>
-    <StyleFilter type="row">
-      {tableData.map((data, index) => {
-        return (
-          <FilterButton
-            key={index}
-            $active={currentFilter === data.value}
-            disabled={currentFilter === data.value}
-            data-name={data.value}
-            onClick={handleFilter}
-          >
-            {data.label}
-          </FilterButton>
-        );
-      })}
-    </StyleFilter>
+    <StyleSheetManager shouldForwardProp={(prop) => prop !== "active"}>
+      <StyleFilter type="row">
+        {tableData.map((data, index) => {
+          return (
+            <FilterButton
+              key={index}
+              $active={currentFilter === data.value}
+              disabled={currentFilter === data.value}
+              data-name={data.value}
+              onClick={handleFilter}
+            >
+              {data.label}
+            </FilterButton>
+          );
+        })}
+      </StyleFilter>
     </StyleSheetManager>
-
   );
 }

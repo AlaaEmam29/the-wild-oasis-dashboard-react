@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { PAGINATIONLENGTH } from "../utils/constants";
 import supabase from "./supabase";
 import { getToday } from "../utils/helper";
+import { useBookings } from "../features/bookings/useBookings";
 
 export async function getBookings({ filter, sort, page }) {
   let query = supabase
@@ -101,21 +102,41 @@ export async function getStaysTodayActivity() {
   // if (error) {
   //   throw new Error(error.message);
   // }
-  
+
   // return data;
-  const today = format(new Date(), 'yyyy-MM-dd');
+  const today = format(new Date(), "yyyy-MM-dd");
 
   const { data, error } = await supabase
-  .from('bookings')
-  .select('*, guests(name, nationality, countryFlag)')
-  .filter('startDate', 'lte', today)
-  .filter('endDate', 'gte', today)
-  .or('status.eq.unconfirmed,status.eq.checked-in')
-  .order('created_at');
+    .from("bookings")
+    .select("*, guests(name, nationality, countryFlag)")
+    .filter("startDate", "lte", today)
+    .filter("endDate", "gte", today)
+    .or("status.eq.unconfirmed,status.eq.checked-in")
+    .order("created_at");
 
   if (error) {
     throw new Error(error.message);
   }
   return data;
+}
 
+export async function CreateNewBooking(obj) {
+  const { data, error } = await supabase.from("bookings").insert([obj]).select();
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+export async function getLastIDBooking () {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("id")
+    .order("id", { ascending: false })
+    .limit(1);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data ? data[0].id : 0;
 }

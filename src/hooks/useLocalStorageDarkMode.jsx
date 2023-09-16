@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 
 function useLocalStorageDarkMode(key) {
   const initialItem = JSON.parse(localStorage.getItem(key));
-  const [darkMode, setDarkMode] = useState(initialItem || false);
+  const [darkMode, setDarkMode] = useState(
+    initialItem || window.matchMedia("(prefers-color-scheme: dark)").matches,
+  );
 
   useEffect(() => {
     const html = document.getElementsByTagName("html")[0];

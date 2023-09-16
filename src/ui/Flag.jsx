@@ -16,6 +16,6 @@ export default function Flag(props) {
       src={`https://flagcdn.com/36x27/${flag}.png`}
       $srcset={`https://flagcdn.com/72x54/${flag}.png 2x,
       https://flagcdn.com/108x81/${flag}.png 3x`}
-         />
+    />
   );
 }

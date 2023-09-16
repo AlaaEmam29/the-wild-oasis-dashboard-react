@@ -4,13 +4,16 @@ import { useBookingDetails } from "../features/detailsBooking/useBookingDetails"
 import Loader from "../ui/Loader";
 import BookingDataContainer from "../features/detailsBooking/BookingDataContainer";
 import BookingButtons from "../features/detailsBooking/BookingButtons";
-import Empty from '../ui/Empty'
+import Empty from "../ui/Empty";
 export default function DetailsBookings() {
-  const { isLoading , booking} = useBookingDetails();
+  const { isLoading, booking } = useBookingDetails();
   if (isLoading) {
     return <Loader />;
   }
-  if (!booking && !isLoading) return <Empty>{`No details to display. Maybe it's a valid booking ID.`}</Empty>
+  if (!booking)
+    return (
+      <Empty>{`No details to display. Maybe it's not a valid booking ID.`}</Empty>
+    );
 
   return (
     <>

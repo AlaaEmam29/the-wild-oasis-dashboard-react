@@ -32,20 +32,18 @@ const ErrorBox = styled(Box)`
   }
 `;
 function Error({ error, resetErrorBoundary }) {
-    // console.log(error , "error")
   return (
     <>
-    <GlobalStyles/>
-        <StyledError>
-      <ErrorBox>
-        <Heading as="h1">Something went wrong</Heading>
-        <p>{error.message}</p>
-        <Button size="large" onClick={resetErrorBoundary}>
-          Try again
-        </Button>
-      </ErrorBox>
-    </StyledError>
-
+      <GlobalStyles />
+      <StyledError>
+        <ErrorBox>
+          <Heading as="h1">Something went wrong</Heading>
+          <p>{error.message}</p>
+          <Button size="large" onClick={resetErrorBoundary}>
+            Try again
+          </Button>
+        </ErrorBox>
+      </StyledError>
     </>
   );
 }

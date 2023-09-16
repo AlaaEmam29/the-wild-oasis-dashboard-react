@@ -91,9 +91,10 @@ const CancelBtn = (props) => {
   const { cancel } = useContext(ModelContext);
   const handleCancel = (e) => {
     e.stopPropagation();
-    cancel();
+    props.onClick?.();
+    // cancel();
   };
-  return <Button onClick={handleCancel} {...props} />;
+  return <Button {...props} onClick={handleCancel} />;
 };
 Model.Container = ModelContainer;
 Model.Close = CloseBtn;

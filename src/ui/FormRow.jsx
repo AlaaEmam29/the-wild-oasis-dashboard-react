@@ -42,7 +42,7 @@ StyledFormRow.defaultProps = {
 export default function FormRow({ label, error, children, layout }) {
   return (
     <StyledFormRow layout={layout}>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && <Label htmlFor={children?.props?.id}>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>

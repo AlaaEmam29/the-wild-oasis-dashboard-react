@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../../ui/Button";
 import Model from "../../ui/Model";
-import BookingForm from "./BookingForm";
+import MultiStepBookingForm from "./MultiStepBookingForm";
 
 export default function AddBookings() {
   return (
@@ -10,7 +10,7 @@ export default function AddBookings() {
         <Button>Add Booking</Button>
       </Model.Open>
       <Model.Container name="openForm">
-        <BookingForm />
+        <MultiStepBookingForm />
       </Model.Container>
     </Model>
   );

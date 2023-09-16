@@ -13,4 +13,5 @@ const PathConstants = {
   NOTFOUND: "*",
 };
 const PAGINATIONLENGTH = 10;
-export { PathConstants, PAGINATIONLENGTH };
+const MAXSTEPSBOOKING = 3;
+export { PathConstants, PAGINATIONLENGTH, MAXSTEPSBOOKING };

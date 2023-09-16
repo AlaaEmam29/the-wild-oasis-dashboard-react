@@ -11,7 +11,6 @@ const StyledActivityList = styled.div`
 import Empty from "../../ui/Empty";
 export default function ActivityList() {
   const { activities } = useTodayActivity();
-  console.log(activities , 'activities')
   return (
     <StyledActivityList>
       {activities?.length > 0 ? (

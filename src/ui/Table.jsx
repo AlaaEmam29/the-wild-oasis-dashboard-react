@@ -1,22 +1,14 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Empty from "./Empty";
 
 const StyledTable = styled.table`
   width: 100%;
-  table-layout: fixed;
 
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
-
-  thead,
-  tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
 
   ::-webkit-scrollbar {
     width: 1rem;
@@ -32,6 +24,14 @@ const StyledTable = styled.table`
     -webkit-border-radius: 1rem;
     border-radius: 1rem;
     background: var(--color-grey-300);
+  }
+
+  table-layout: fixed;
+  thead,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
   }
   th:last-child,
   td:last-child {
@@ -79,6 +79,7 @@ const StyledBody = styled.tbody`
     }
   }
 `;
+
 function Table({ children }) {
   return <StyledTable>{children}</StyledTable>;
 }
