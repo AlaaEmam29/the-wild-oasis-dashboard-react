@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { PathConstants } from "./utils/constants";
 import { Toaster } from "react-hot-toast";
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Loader from "./ui/Loader";
@@ -36,12 +36,30 @@ const queryClient = new QueryClient({
 });
 const shouldForwardProp = (prop) => !prop.startsWith("$");
 
+const ReactQueryDevtoolsProduction = lazy(() =>
+  import('react-query/devtools/development').then(d => ({
+    default: d.ReactQueryDevtools,
+  }))
+)
+
 function App() {
+  const [showDevtools, setShowDevtools] = useState(false)
+
+  useEffect(() => {
+    // @ts-ignore
+    window.toggleDevtools = () => setShowDevtools(old => !old)
+  }, [])
+  
   return (
     <StyleSheetManager shouldForwardProp={shouldForwardProp}>
       <DarkThemeProvider>
-        <QueryClientProvider client={queryClient}>
+           <QueryClientProvider client={queryClient} contextSharing={true}>
           <ReactQueryDevtools initialIsOpen={false} />
+          {showDevtools ? (
+        <Suspense fallback={null}>
+          <ReactQueryDevtoolsProduction />
+        </Suspense>
+      ) : null}
 <GlobalStyle />
            <BrowserRouter>
              <Routes>
