@@ -35,19 +35,21 @@ const queryClient = new QueryClient({
   },
 });
 const shouldForwardProp = (prop) => !prop.startsWith("$");
-
 const ReactQueryDevtoolsProduction = lazy(() =>
-  import('react-query/devtools/development').then(d => ({
-    default: d.ReactQueryDevtools,
-  }))
+  import('@tanstack/react-query-devtools/build/lib/index.prod.js').then(
+    (d) => ({
+      default: d.ReactQueryDevtools,
+    }),
+  ),
 )
+
 
 function App() {
   const [showDevtools, setShowDevtools] = useState(false)
 
   useEffect(() => {
     // @ts-ignore
-    window.toggleDevtools = () => setShowDevtools(old => !old)
+    window.toggleDevtools = () => setShowDevtools((old) => !old)
   }, [])
   
   return (
@@ -55,11 +57,11 @@ function App() {
       <DarkThemeProvider>
            <QueryClientProvider client={queryClient} contextSharing={true}>
           <ReactQueryDevtools initialIsOpen={false} />
-          {showDevtools ? (
-        <Suspense fallback={null}>
+          {showDevtools && (
+        <React.Suspense fallback={null}>
           <ReactQueryDevtoolsProduction />
-        </Suspense>
-      ) : null}
+        </React.Suspense>
+      )}
 <GlobalStyle />
            <BrowserRouter>
              <Routes>
