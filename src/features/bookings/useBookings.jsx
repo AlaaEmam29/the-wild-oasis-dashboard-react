@@ -22,7 +22,6 @@ export function useBookings() {
     queryFn: () => getBookings({ filter, sort, page }),
   });
   let pageCount = Math.ceil(count / PAGINATIONLENGTH);
-  console.log("pageCount", pageCount);
   if (page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["bookings", filter, sort, page + 1],
