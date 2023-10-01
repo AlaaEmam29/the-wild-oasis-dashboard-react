@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCabins } from "../../services/apiCabins";
 import { useFilterSortApi } from "../../hooks/useFilterSortApi";
 import { usePaginationApi } from "../../hooks/usePaginationApi";
+import { PAGINATIONLENGTH } from "../../utils/constants";
 
 export function useCabins() {
   const queryClient = useQueryClient();
@@ -11,7 +12,7 @@ export function useCabins() {
     "sortBy",
     "startDate-asc",
   );
-  const { currentPage: page, pageCount } = usePaginationApi();
+  const { currentPage: page } = usePaginationApi();
 
   const {
     isLoading,
@@ -21,6 +22,7 @@ export function useCabins() {
     queryKey: ["cabins", filter, sort, page],
     queryFn: () => getCabins({ filter, sort, page }),
   });
+  let pageCount = Math.ceil(count / PAGINATIONLENGTH);
   if (page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["cabins", filter, sort, page + 1],

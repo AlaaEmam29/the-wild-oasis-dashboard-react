@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import { useFilterSortApi } from "../../hooks/useFilterSortApi";
 import { usePaginationApi } from "../../hooks/usePaginationApi";
+import { PAGINATIONLENGTH } from "../../utils/constants";
 
 export function useBookings() {
   const queryClient = useQueryClient();
@@ -11,7 +12,7 @@ export function useBookings() {
     "sortBy",
     "startDate-desc",
   );
-  const { currentPage: page, pageCount } = usePaginationApi();
+  const { currentPage: page } = usePaginationApi();
   const {
     isLoading,
     data: { bookings, count } = {},
@@ -20,6 +21,8 @@ export function useBookings() {
     queryKey: ["bookings", filter, sort, page],
     queryFn: () => getBookings({ filter, sort, page }),
   });
+  let pageCount = Math.ceil(count / PAGINATIONLENGTH);
+  console.log("pageCount", pageCount);
   if (page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ["bookings", filter, sort, page + 1],

@@ -4,8 +4,6 @@ import Row from "../ui/Row";
 import BookingTable from "../features/bookings/BookingTable";
 import Loader from "../ui/Loader";
 import { useBookings } from "../features/bookings/useBookings";
-import Button from "../ui/Button";
-import MultiStepBookingForm from "../features/bookings/MultiStepBookingForm";
 import AddBookings from "../features/bookings/AddBookings";
 import { AddBookingsProvider } from "../context/useContextAddBookings";
 
@@ -20,7 +18,7 @@ export default function Bookings() {
       <BookingsTableOperations />
       <Row>
         <BookingTable />
-        <AddBookings />
+        {/* <AddBookings /> */}
       </Row>
     </AddBookingsProvider>
   );
